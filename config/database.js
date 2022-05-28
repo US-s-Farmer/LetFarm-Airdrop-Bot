@@ -6,8 +6,11 @@ const mongoose = require('mongoose');
 config.config();
 
 const Connect = () => {
-    const uri = process.env.DATABASE;
-    return mongoose.connect(uri,{useUnifiedTopology: true, useNewUrlParser:true});
-}
+  const uri = process.env.DATABASE;
+  return mongoose.connect(uri, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  });
+};
 
 module.exports = Connect;

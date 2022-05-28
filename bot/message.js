@@ -1,7 +1,6 @@
 require('dotenv').config();
 const keyWallet = '👛 Wallet';
 const keyRules = '📌 Rules';
-const check = 'Check';
 
 module.exports = {
   STEP1: 'Step 1. Link twitter',
@@ -19,18 +18,14 @@ module.exports = {
     \n💰Besites that, for each invited new participant, you can earn ${process.env.BONUS} ${process.env.SYMBOL} for bonus`;
   },
   TWITTER: (user) => {
-    return `Let's start by following our twitter, our sponson and retweet this post bellow.\n Then submit your twitter account bellow
+    return `Let's start by following our twitter and retweet this post bellow.\n Then submit your twitter account bellow
         \n Make sure your twitter account is correct, we will check it later `;
   },
   TELEGRAM: (user) => {
-    return `Great ${user}, next join to our telegram group and our sponson.\n Then submit your telegram handle below`;
+    return `Great ${user}, next join to our telegram group.\n Then submit your telegram handle below`;
   },
   FACEBOOK: (user) => {
     return `Great ${user}, next like to our facebook group.\n Then submit your facebook handle below`;
-  },
-  ICO: (user) => {
-    return `Great ${user}, please create an account for our ico website.\n Then submit your email used for register ico website below
-        \n We will send token through it (Check pin message in our telegram group solve the problem)`;
   },
   WALLET: (user) => {
     return `This is final step. Please submit your BEP-20 address here`;
@@ -53,7 +48,7 @@ module.exports = {
         \n⚠️ Only users who have never started the airdrop before are valid.
         \n🗓 The airdrop will start at ${process.env.BEGIN_TIME} ${process.env.TIME_ZONE}
         \n🗓 The airdrop will start end at ${process.env.END_TIME} ${process.env.TIME_ZONE}
-        \n🔗 Your referral link：https://t.me/LetFarmAirdrop_bot?start=${id}`;
+        \n🔗 Your referral link：https://t.me/LetFarm_Airdrop_bot?start=${id}`;
   },
   twNotFollow: "You haven't followed page twitter",
   twNotReTweet: "You haven't retweet post twitter",

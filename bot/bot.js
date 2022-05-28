@@ -1,6 +1,6 @@
-const TelegramBot = require("node-telegram-bot-api");
-const nodeDate = require("date-and-time");
-require("dotenv").config();
+const TelegramBot = require('node-telegram-bot-api');
+require('dotenv').config();
+
 const {
   getCurrentStep,
   STEP_WALLET,
@@ -20,54 +20,49 @@ const {
   addReferralUser,
   setIsDone,
   getIsDone,
-  STEP_EMAIL,
   countBonus,
-} = require("./airdroper.controller");
+} = require('./airdroper.controller');
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.BOT_API;
-const listText = require("./message");
-const { convert } = require("../helper/convertDateToTimeStamp");
-const { validateEmail } = require("../helper/validate");
+const listText = require('./message');
+const { convert } = require('../helper/convertDateToTimeStamp');
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
 
 const keyboards = {
   telegram: {
-    inline_keyboard: [[{ text: "LetFarm's Telegram", url: process.env.TELEGRAM_LINK }],
-                      [{ text: "Advertiser's Telegram", url: process.env.TELEGRAM_SPONSON_LINK }]
-                    ],
+    inline_keyboard: [
+      [{ text: "LetFarm's Telegram", url: process.env.TELEGRAM_LINK }],
+    ],
   },
   facebook: {
-    inline_keyboard: [[{ text: "Facebook", url: process.env.FACEBOOK_LINK }]],
+    inline_keyboard: [[{ text: 'Facebook', url: process.env.FACEBOOK_LINK }]],
   },
   twitter: {
-    inline_keyboard: [[{ text: "LetFarm's Twitter", url: process.env.TWITTER_LINK }],
-                      [{ text: "LetFarm's Twitter Post", url: process.env.POST_LINK }],
-                      [{ text: "Advertiser's Twitter", url: process.env.TWITTER_SPONSON_LINK }],
-                    ],
-  },
-  ico: {
-    inline_keyboard: [[{ text: "ICO", url: process.env.ICO_PAGE_LINK }]],
+    inline_keyboard: [
+      [{ text: "LetFarm's Twitter", url: process.env.TWITTER_LINK }],
+      [{ text: "LetFarm's Twitter Post", url: process.env.POST_LINK }],
+    ],
   },
   restart: {
     inline_keyboard: [
-      [{ text: "🔁 RESTART", callback_data: "RESTART" }],
-      [{ text: "✅ DONE", callback_data: "DONE" }],
+      [{ text: '🔁 RESTART', callback_data: 'RESTART' }],
+      [{ text: '✅ DONE', callback_data: 'DONE' }],
     ],
   },
   statistic: {
-    inline_keyboard: [[{ text: "〽️ STATISTIC", callback_data: "STATISTIC" }]],
+    inline_keyboard: [[{ text: '〽️ STATISTIC', callback_data: 'STATISTIC' }]],
   },
 };
 
 bot.onText(/\/start (.+)|\/start/i, async (msg, match) => {
   const id = msg.chat.id;
 
-  if (canAirdrop() == "PRESTART") {
+  if (canAirdrop() == 'PRESTART') {
     return bot.sendMessage(id, listText.PRE_START);
-  } else if (canAirdrop() == "ENDED") {
+  } else if (canAirdrop() == 'ENDED') {
     return bot.sendMessage(id, listText.ENDED);
   }
   if (msg.from.is_bot) {
@@ -92,9 +87,9 @@ bot.onText(/\/start (.+)|\/start/i, async (msg, match) => {
 
 bot.onText(/\.*/, async (msg) => {
   const id = msg.chat.id;
-  if (canAirdrop() === "PRESTART") {
+  if (canAirdrop() === 'PRESTART') {
     return bot.sendMessage(id, listText.PRE_START);
-  } else if (canAirdrop() === "ENDED") {
+  } else if (canAirdrop() === 'ENDED') {
     return bot.sendMessage(id, listText.ENDED);
   } else {
     const step = await getCurrentStep(id);
@@ -115,16 +110,13 @@ const mission = async ({ msg, step }) => {
     await telegramStep(msg);
   } else if (step === STEP_FACEBOOK) {
     await facebookStep(msg);
-  } else if (step === STEP_EMAIL) {
-    await icoStep(msg);
   } else if (step === STEP_WALLET) {
     await walletStep(msg);
-  } else {
   }
 };
 
 const twitterStep = async (msg) => {
-  if (msg.text == "/start") {
+  if (msg.text == '/start') {
     return await bot.sendMessage(
       msg.chat.id,
       listText.TWITTER(msg.chat.username),
@@ -133,12 +125,12 @@ const twitterStep = async (msg) => {
       }
     );
   }
-  if (msg.text[0] !== "@") {
+  if (msg.text[0] !== '@') {
     return bot.sendMessage(msg.chat.id, listText.validTwitter);
   } else if (await isUniqueTwitter(msg.text)) {
     return bot.sendMessage(
       msg.chat.id,
-      "❌ Twitter is used. Please try another one"
+      '❌ Twitter is used. Please try another one'
     );
   } else {
     await bot.sendMessage(msg.chat.id, listText.TELEGRAM(msg.chat.username), {
@@ -152,20 +144,18 @@ const facebookStep = async (msg) => {
   if (await isUniqueFacebook(msg.text)) {
     return bot.sendMessage(
       msg.chat.id,
-      "❌ Facebook is used. Please try another one"
+      '❌ Facebook is used. Please try another one'
     );
   }
   await updateAirdrop({ id: msg.chat.id, facebook: msg.text });
-  return bot.sendMessage(msg.chat.id, listText.ICO(msg.chat.username), {
-    reply_markup: keyboards.ico,
-  });
+  return bot.sendMessage(msg.chat.id, listText.WALLET(msg.chat.username));
 };
 
 const telegramStep = async (msg) => {
   if (await isUniqueTelegram(msg.text)) {
     return bot.sendMessage(
       msg.chat.id,
-      "❌ Telegram user is used. Please try another one"
+      '❌ Telegram user is used. Please try another one'
     );
   }
   await updateAirdrop({ id: msg.chat.id, telegram: msg.text });
@@ -174,21 +164,13 @@ const telegramStep = async (msg) => {
   });
 };
 
-const icoStep = async (msg) => {
-  if (!validateEmail(msg.text)) {
-    return bot.sendMessage(msg.chat.id, "Invalid email, please try again");
-  }
-  await updateAirdrop({ id: msg.chat.id, email: msg.text });
-  return bot.sendMessage(msg.chat.id, listText.WALLET(msg.chat.username));
-};
-
 const walletStep = async (msg) => {
   if (!/^(0x){1}[0-9a-fA-F]{40}$/i.test(msg.text)) {
     return bot.sendMessage(msg.chat.id, listText.validWallet);
   } else if (await isUniqueWallet(msg.text)) {
     return bot.sendMessage(
       msg.chat.id,
-      "❌ Wallet user is used. Please try another one"
+      '❌ Wallet user is used. Please try another one'
     );
   } else {
     await updateAirdrop({ id: msg.chat.id, wallet: msg.text });
@@ -214,25 +196,25 @@ const canAirdrop = () => {
   const ended = convert(process.env.END_TIME);
 
   if (now < start) {
-    return "PRESTART";
+    return 'PRESTART';
   } else if (now > ended) {
-    return "ENDED";
+    return 'ENDED';
   } else {
     return true;
   }
 };
 
-bot.on("callback_query", async (callbackQuery) => {
-  if (callbackQuery.data == "RESTART") {
+bot.on('callback_query', async (callbackQuery) => {
+  if (callbackQuery.data == 'RESTART') {
     if (await getIsDone(callbackQuery.from.id)) {
       return bot.sendMessage(
         callbackQuery.from.id,
-        "❌ You cannot restart airdrop after comfirming"
+        '❌ You cannot restart airdrop after comfirming'
       );
     }
     await restartAirdrop(callbackQuery.from.id);
     bot.sendMessage(callbackQuery.from.id, listText.RESTART);
-  } else if (callbackQuery.data == "DONE") {
+  } else if (callbackQuery.data == 'DONE') {
     await setIsDone(callbackQuery.from.id);
     return bot.sendMessage(
       callbackQuery.from.id,
@@ -241,7 +223,7 @@ bot.on("callback_query", async (callbackQuery) => {
         reply_markup: keyboards.statistic,
       }
     );
-  } else if (callbackQuery.data == "STATISTIC") {
+  } else if (callbackQuery.data == 'STATISTIC') {
     const bonusAmount = await countBonus(callbackQuery.from.id);
     return bot.sendMessage(
       callbackQuery.from.id,

@@ -7,7 +7,6 @@ class Data {
         telegram=null,
         facebook=null,
         wallet=null,
-        email=null,
         invitedUser=[],
         isDone=false,
     }){
@@ -16,7 +15,6 @@ class Data {
         this.telegram = telegram;
         this.facebook = facebook;
         this.wallet = wallet;
-        this.email=email;
         this.invitedUser=invitedUser;
         this.isDone = isDone;
     }
@@ -28,7 +26,6 @@ const DataSchema = new mongoose.Schema({
     telegram: String,
     facebook: String,
     wallet: String,
-    email: String,
     invitedUser: Array,
     isDone: Boolean,
 })

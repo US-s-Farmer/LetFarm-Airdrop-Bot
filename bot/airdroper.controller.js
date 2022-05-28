@@ -1,12 +1,11 @@
-const { dataModel, Data } = require("./airdroper.model");
+const { dataModel, Data } = require('./airdroper.model');
 
 const STEP_NONE = 0;
 const STEP_TWITTER = 1;
 const STEP_TELEGRAM = 2;
 const STEP_FACEBOOK = 3;
-const STEP_EMAIL = 4;
-const STEP_WALLET = 5;
-const STEP_REFERRAL = 6;
+const STEP_WALLET = 4;
+const STEP_REFERRAL = 5;
 
 const getCurrentStep = async (id) => {
   const user = await dataModel.findOne({ id: id });
@@ -19,11 +18,9 @@ const getCurrentStep = async (id) => {
     return 2;
   } else if (user.facebook === null) {
     return 3;
-  } else if (user.email == null) {
-    return 4;
   } else if (user.wallet === null) {
-    return 5;
-  } else return 6;
+    return 4;
+  } else return 5;
 };
 
 const getAirdropById = async (id) => {
@@ -41,22 +38,13 @@ const isJoin = async (id) => {
   }
 };
 
-const updateAirdrop = async ({
-  id,
-  twitter,
-  telegram,
-  facebook,
-  wallet,
-  email,
-}) => {
+const updateAirdrop = async ({ id, twitter, telegram, facebook, wallet }) => {
   if (twitter !== undefined) {
     await dataModel.updateOne({ id: id }, { twitter: twitter });
   } else if (telegram !== undefined) {
     await dataModel.updateOne({ id: id }, { telegram: telegram });
   } else if (facebook !== undefined) {
     await dataModel.updateOne({ id: id }, { facebook: facebook });
-  } else if (email !== undefined) {
-    await dataModel.updateOne({ id: id }, { email: email });
   } else if (wallet !== undefined) {
     await dataModel.updateOne({ id: id }, { wallet: wallet });
   }
@@ -86,13 +74,13 @@ const isUniqueFacebook = async (facebook) => {
   return true;
 };
 
-const isUniqueEmail = async ({email}) => {
-    const check = await dataModel.findOne({ email: email });
+const isUniqueEmail = async ({ email }) => {
+  const check = await dataModel.findOne({ email: email });
   if (!check?.email || check.email === null) {
     return false;
   }
   return true;
-}
+};
 
 const isUniqueWallet = async (wallet) => {
   const check = await dataModel.findOne({ wallet: wallet });
@@ -159,5 +147,4 @@ module.exports = {
   STEP_FACEBOOK,
   STEP_WALLET,
   STEP_REFERRAL,
-  STEP_EMAIL
 };
