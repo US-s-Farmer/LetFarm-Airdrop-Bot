@@ -12,34 +12,42 @@ module.exports = {
   keyRules,
   keyHelp: '📨 Contact',
   START: (user) => {
-    return `Hello ${user}!, This is a friendly LetFarm Airdrop bot.
-    \nWelcome to participate in our airdrop!
-    \n💰Please perform the tasks below to earn to ${process.env.TOKEN_AMOUNT} ${process.env.SYMBOL}.
-    \n💰Besites that, for each invited new participant, you can earn ${process.env.BONUS} ${process.env.SYMBOL} for bonus`;
+    return `Hi ${user ? user : ''}! This is a friendly LetFarm Airdrop bot.
+    \nWelcome to our airdrop performance!
+    \n💰Please perform the tasks below to earn to ${process.env.TOKEN_AMOUNT} ${
+      process.env.SYMBOL
+    }.
+    \n💰Beside, for each new invited participant, you can earn ${
+      process.env.BONUS
+    } ${process.env.SYMBOL} for bonus`;
   },
-  TWITTER: (user) => {
+  TWITTER: () => {
     return `Let's start by following our twitter and retweet this post bellow.\n Then submit your twitter account bellow
         \n Make sure your twitter account is correct, we will check it later `;
   },
   TELEGRAM: (user) => {
-    return `Great ${user}, next join to our telegram group.\n Then submit your telegram handle below`;
+    return `Great ${
+      user ? user : ''
+    }, next join to our telegram group.\n Then submit your telegram handle below`;
   },
   FACEBOOK: (user) => {
-    return `Great ${user}, next like to our facebook group.\n Then submit your facebook handle below`;
+    return `Great ${
+      user ? user : ''
+    }, next like to our facebook page.\n Then submit your facebook handle below`;
   },
-  WALLET: (user) => {
+  WALLET: () => {
     return `This is final step. Please submit your BEP-20 address here`;
   },
   validTwitter:
-    'Invalid twitter account please submit your twitter username with @:',
-  validWallet: 'Invalid wallet address, please try again:',
+    'Invalid twitter account please submit your twitter username with @',
+  validWallet: 'Invalid wallet address, please try again',
   confirmInfo: (info) => {
     return `Now you finished all the missions, please check these information one more time to make sure it correct
     Twitter: ${info.twitter}
     Telegram: ${info.telegram}
     Facebook: ${info.facebook}
     Wallet: ${info.wallet}
-        \nIf you don not sure you can restart the airdrop again!`;
+        \nIf you do not sure you can restart the airdrop again!`;
   },
   RESTART: 'Restart, please press /start to try again',
   DONE: (id) => {
@@ -47,7 +55,7 @@ module.exports = {
         \n👏 For each person you invite, you will get ${process.env.BONUS} ${process.env.SYMBOL}.
         \n⚠️ Only users who have never started the airdrop before are valid.
         \n🗓 The airdrop will start at ${process.env.BEGIN_TIME} ${process.env.TIME_ZONE}
-        \n🗓 The airdrop will start end at ${process.env.END_TIME} ${process.env.TIME_ZONE}
+        \n🗓 The airdrop will end at ${process.env.END_TIME} ${process.env.TIME_ZONE}
         \n🔗 Your referral link：https://t.me/LetFarm_Airdrop_bot?start=${id}`;
   },
   twNotFollow: "You haven't followed page twitter",
@@ -55,12 +63,12 @@ module.exports = {
   twNotLike: "You haven't like post twitter",
   twNotUser: 'You must bind username twitter',
   teleNotFollow: "You haven't follow chanel telegram",
-  teleNotJoin: "❌ You haven't join group telegram",
+  teleNotJoin: "You haven't join group telegram",
   notFoundTw: 'Not found user twitter, please try again.',
   PRE_START: `❇ The airdrop will start in ${process.env.BEGIN_TIME} ${process.env.TIME_ZONE}`,
   ENDED: `❇ The airdrop ended. Thank for your participation!`,
   STATISTIC: ({ user, bonusAmount }) => {
-    return `Hello ${user}
+    return `Hi ${user ? user : ''}!
         \n Your token can receive is ${process.env.TOKEN_AMOUNT} ${
       process.env.SYMBOL
     }
