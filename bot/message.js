@@ -21,6 +21,11 @@ module.exports = {
       process.env.BONUS
     } ${process.env.SYMBOL} for bonus`;
   },
+  FACEBOOK: (user) => {
+    return `Great ${
+      user ? user : ''
+    }, next like to our facebook page.\n Then submit your facebook handle below`;
+  },
   TWITTER: () => {
     return `Let's start by following our twitter and retweet this post bellow.\n Then submit your twitter account bellow
         \n Make sure your twitter account is correct, we will check it later `;
@@ -29,11 +34,6 @@ module.exports = {
     return `Great ${
       user ? user : ''
     }, next join to our telegram group.\n Then submit your telegram handle below`;
-  },
-  FACEBOOK: (user) => {
-    return `Great ${
-      user ? user : ''
-    }, next like to our facebook page.\n Then submit your facebook handle below`;
   },
   WALLET: () => {
     return `This is final step. Please submit your BEP-20 address here`;
