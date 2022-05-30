@@ -35,6 +35,7 @@ const keyboards = {
   telegram: {
     inline_keyboard: [
       [{ text: "LetFarm's Telegram", url: process.env.TELEGRAM_LINK }],
+      [{ text: "Verse's Telegram", url: process.env.VERSE_TELEGRAM }],
     ],
   },
   facebook: {
@@ -43,6 +44,7 @@ const keyboards = {
   twitter: {
     inline_keyboard: [
       [{ text: "LetFarm's Twitter", url: process.env.TWITTER_LINK }],
+      [{ text: "Verse's Twitter", url: process.env.VERSE_TWITTER }],
       [{ text: "LetFarm's Twitter Post", url: process.env.POST_LINK }],
     ],
   },
