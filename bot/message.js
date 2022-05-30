@@ -21,13 +21,13 @@ module.exports = {
       process.env.BONUS
     } ${process.env.SYMBOL} for bonus`;
   },
-  FACEBOOK: (user) => {
+  FACEBOOK: () => {
+    return `Let's start by following our facebook page.\n Then submit your facebook handle below`;
+  },
+  TWITTER: (user) => {
     return `Great ${
       user ? user : ''
-    }, next like to our facebook page.\n Then submit your facebook handle below`;
-  },
-  TWITTER: () => {
-    return `Let's start by following our twitter and retweet this post bellow.\n Then submit your twitter account bellow
+    }, next follow our twitter and retweet this post bellow.\n Then submit your twitter account bellow
         \n Make sure your twitter account is correct, we will check it later `;
   },
   TELEGRAM: (user) => {
@@ -43,9 +43,9 @@ module.exports = {
   validWallet: 'Invalid wallet address, please try again',
   confirmInfo: (info) => {
     return `Now you finished all the missions, please check these information one more time to make sure it correct
+    Facebook: ${info.facebook}
     Twitter: ${info.twitter}
     Telegram: ${info.telegram}
-    Facebook: ${info.facebook}
     Wallet: ${info.wallet}
         \nIf you do not sure you can restart the airdrop again!`;
   },
