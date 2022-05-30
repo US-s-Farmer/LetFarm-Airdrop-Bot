@@ -3,9 +3,9 @@ const keyWallet = '👛 Wallet';
 const keyRules = '📌 Rules';
 
 module.exports = {
-  STEP1: 'Step 1. Link twitter',
-  STEP2: 'Step 2. Link telegram group',
-  STEP3: 'Step 3. Link facebook',
+  STEP1: 'Step 1. Link facebook',
+  STEP2: 'Step 2. Link twitter',
+  STEP3: 'Step 3. Link telegram group',
   STEP4: 'Step 4. BEP-20 address',
   keyPoint: '🅿️ Points',
   keyWallet,

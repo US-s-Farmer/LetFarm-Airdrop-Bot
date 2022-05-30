@@ -1,9 +1,9 @@
 const { dataModel, Data } = require('./airdroper.model');
 
 const STEP_NONE = 0;
-const STEP_TWITTER = 1;
-const STEP_TELEGRAM = 2;
-const STEP_FACEBOOK = 3;
+const STEP_FACEBOOK = 1;
+const STEP_TWITTER = 2;
+const STEP_TELEGRAM = 3;
 const STEP_WALLET = 4;
 const STEP_REFERRAL = 5;
 
@@ -12,11 +12,11 @@ const getCurrentStep = async (id) => {
 
   if (!user) {
     return 0;
-  } else if (user.twitter === null) {
-    return 1;
-  } else if (user.telegram === null) {
-    return 2;
   } else if (user.facebook === null) {
+    return 1;
+  } else if (user.twitter === null) {
+    return 2;
+  } else if (user.telegram === null) {
     return 3;
   } else if (user.wallet === null) {
     return 4;
