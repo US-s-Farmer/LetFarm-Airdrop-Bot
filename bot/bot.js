@@ -32,12 +32,6 @@ const { convert } = require('../helper/convertDateToTimeStamp');
 const bot = new TelegramBot(token, { polling: true });
 
 const keyboards = {
-  telegram: {
-    inline_keyboard: [
-      [{ text: "LetFarm's Telegram", url: process.env.TELEGRAM_LINK }],
-      [{ text: "Verse's Telegram", url: process.env.VERSE_TELEGRAM }],
-    ],
-  },
   facebook: {
     inline_keyboard: [[{ text: 'Facebook', url: process.env.FACEBOOK_LINK }]],
   },
@@ -46,6 +40,12 @@ const keyboards = {
       [{ text: "LetFarm's Twitter", url: process.env.TWITTER_LINK }],
       [{ text: "Verse's Twitter", url: process.env.VERSE_TWITTER }],
       [{ text: "LetFarm's Twitter Post", url: process.env.POST_LINK }],
+    ],
+  },
+  telegram: {
+    inline_keyboard: [
+      [{ text: "LetFarm's Telegram", url: process.env.TELEGRAM_LINK }],
+      [{ text: "Verse's Telegram", url: process.env.VERSE_TELEGRAM }],
     ],
   },
   restart: {
@@ -81,8 +81,8 @@ bot.onText(/\/start (.+)|\/start/i, async (msg, match) => {
       await addReferralUser(msg.chat.id, match[1]);
     }
     await bot.sendMessage(id, listText.START(msg.chat.username));
-    await bot.sendMessage(id, listText.TWITTER(msg.chat.username), {
-      reply_markup: keyboards.twitter,
+    await bot.sendMessage(id, listText.FACEBOOK(msg.chat.username), {
+      reply_markup: keyboards.facebook,
     });
   }
 });
@@ -118,15 +118,6 @@ const mission = async ({ msg, step }) => {
 };
 
 const twitterStep = async (msg) => {
-  if (msg.text == '/start') {
-    return await bot.sendMessage(
-      msg.chat.id,
-      listText.TWITTER(msg.chat.username),
-      {
-        reply_markup: keyboards.twitter,
-      }
-    );
-  }
   if (msg.text[0] !== '@') {
     return bot.sendMessage(msg.chat.id, listText.validTwitter);
   } else if (await isUniqueTwitter(msg.text)) {
@@ -143,6 +134,15 @@ const twitterStep = async (msg) => {
 };
 
 const facebookStep = async (msg) => {
+  if (msg.text == '/start') {
+    return await bot.sendMessage(
+      msg.chat.id,
+      listText.FACEBOOK(msg.chat.username),
+      {
+        reply_markup: keyboards.facebook,
+      }
+    );
+  }
   if (await isUniqueFacebook(msg.text)) {
     return bot.sendMessage(
       msg.chat.id,
@@ -150,7 +150,9 @@ const facebookStep = async (msg) => {
     );
   }
   await updateAirdrop({ id: msg.chat.id, facebook: msg.text });
-  return bot.sendMessage(msg.chat.id, listText.WALLET(msg.chat.username));
+  return bot.sendMessage(msg.chat.id, listText.TWITTER(msg.chat.username), {
+    reply_markup: keyboards.twitter,
+  });
 };
 
 const telegramStep = async (msg) => {
@@ -161,9 +163,7 @@ const telegramStep = async (msg) => {
     );
   }
   await updateAirdrop({ id: msg.chat.id, telegram: msg.text });
-  return bot.sendMessage(msg.chat.id, listText.FACEBOOK(msg.chat.username), {
-    reply_markup: keyboards.facebook,
-  });
+  return bot.sendMessage(msg.chat.id, listText.WALLET(msg.chat.username));
 };
 
 const walletStep = async (msg) => {

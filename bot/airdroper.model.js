@@ -3,17 +3,17 @@ const mongoose = require('mongoose');
 class Data {
     constructor({
         id=null,
+        facebook=null,
         twitter=null,
         telegram=null,
-        facebook=null,
         wallet=null,
         invitedUser=[],
         isDone=false,
     }){
         this.id = id;
+        this.facebook = facebook;
         this.twitter =  twitter;
         this.telegram = telegram;
-        this.facebook = facebook;
         this.wallet = wallet;
         this.invitedUser=invitedUser;
         this.isDone = isDone;
@@ -22,9 +22,9 @@ class Data {
 
 const DataSchema = new mongoose.Schema({
     id: String,
+    facebook: String,
     twitter: String,
     telegram: String,
-    facebook: String,
     wallet: String,
     invitedUser: Array,
     isDone: Boolean,

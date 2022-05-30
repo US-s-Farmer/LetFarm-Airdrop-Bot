@@ -101,13 +101,3 @@ module.exports = {
   getIdByUsername,
   checkTwitter,
 };
-// async function test() {
-//   for (let index = 0; index < 300; index++) {
-//     const res = await checkTwitter('1075458878291173376');
-//     console.log(index);
-//     if (!res.status) {
-//       break;
-//     }
-//   }
-// }
-// test()

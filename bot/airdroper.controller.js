@@ -39,12 +39,12 @@ const isJoin = async (id) => {
 };
 
 const updateAirdrop = async ({ id, twitter, telegram, facebook, wallet }) => {
-  if (twitter !== undefined) {
+  if (facebook !== undefined) {
+    await dataModel.updateOne({ id: id }, { facebook: facebook });
+  } else if (twitter !== undefined) {
     await dataModel.updateOne({ id: id }, { twitter: twitter });
   } else if (telegram !== undefined) {
     await dataModel.updateOne({ id: id }, { telegram: telegram });
-  } else if (facebook !== undefined) {
-    await dataModel.updateOne({ id: id }, { facebook: facebook });
   } else if (wallet !== undefined) {
     await dataModel.updateOne({ id: id }, { wallet: wallet });
   }
