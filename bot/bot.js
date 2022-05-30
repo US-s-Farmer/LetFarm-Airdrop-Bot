@@ -102,6 +102,8 @@ bot.onText(/\.*/, async (msg) => {
 const mission = async ({ msg, step }) => {
   if (step === STEP_NONE) {
     return;
+  } else if (step === STEP_FACEBOOK) {
+    await facebookStep(msg);
   } else if (step === STEP_TWITTER) {
     await twitterStep(msg);
   } else if (step === STEP_TELEGRAM) {
@@ -110,8 +112,6 @@ const mission = async ({ msg, step }) => {
     //   return bot.sendMessage(msg.chat.id, listText.teleNotJoin);
     // }
     await telegramStep(msg);
-  } else if (step === STEP_FACEBOOK) {
-    await facebookStep(msg);
   } else if (step === STEP_WALLET) {
     await walletStep(msg);
   }
