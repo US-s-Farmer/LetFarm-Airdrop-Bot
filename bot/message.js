@@ -6,7 +6,8 @@ module.exports = {
   STEP1: 'Step 1. Link facebook',
   STEP2: 'Step 2. Link twitter',
   STEP3: 'Step 3. Link telegram group',
-  STEP4: 'Step 4. BEP-20 address',
+  STEP4: 'Step 4. Link advertising partner',
+  STEP5: 'Step 5. BEP-20 address',
   keyPoint: '🅿️ Points',
   keyWallet,
   keyRules,
@@ -27,15 +28,20 @@ module.exports = {
   TWITTER: (user) => {
     return `Great ${
       user ? user : ''
-    }, next follow our twitter, advertising partner on twitter
-    and retweet this post bellow.\n Then submit your twitter account bellow
+    }, next follow our twitter and retweet this post bellow.\n Then submit your twitter account bellow
         \n Make sure your twitter account is correct, we will check it later `;
   },
   TELEGRAM: (user) => {
     return `Great ${
       user ? user : ''
-    }, next join to our telegram group, advertising partner telegram group.\n Then submit your telegram handle below`;
+    }, next join to our telegram group.\n Then submit your telegram handle below`;
   },
+  VERSE: (user) => {
+    return `Great ${
+      user ? user : ''
+    }, next follow advertising partner on telegram and twitter.\n Then type "next" to continue.`;
+  },
+  validNext: `Please type "next" to continue.`,
   WALLET: () => {
     return `This is final step. Please submit your BEP-20 address here`;
   },

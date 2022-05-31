@@ -6,6 +6,7 @@ const {
   STEP_WALLET,
   STEP_NONE,
   STEP_TELEGRAM,
+  STEP_VERSE,
   isJoin,
   STEP_TWITTER,
   isUniqueTwitter,
@@ -38,13 +39,17 @@ const keyboards = {
   twitter: {
     inline_keyboard: [
       [{ text: "LetFarm's Twitter", url: process.env.TWITTER_LINK }],
-      [{ text: "Verse's Twitter", url: process.env.VERSE_TWITTER }],
       [{ text: "LetFarm's Twitter Post", url: process.env.POST_LINK }],
     ],
   },
   telegram: {
     inline_keyboard: [
       [{ text: "LetFarm's Telegram", url: process.env.TELEGRAM_LINK }],
+    ],
+  },
+  verse: {
+    inline_keyboard: [
+      [{ text: "Verse's Twitter", url: process.env.VERSE_TWITTER }],
       [{ text: "Verse's Telegram", url: process.env.VERSE_TELEGRAM }],
     ],
   },
@@ -112,6 +117,8 @@ const mission = async ({ msg, step }) => {
     //   return bot.sendMessage(msg.chat.id, listText.teleNotJoin);
     // }
     await telegramStep(msg);
+  } else if (step === STEP_VERSE) {
+    await verseStep(msg);
   } else if (step === STEP_WALLET) {
     await walletStep(msg);
   }
@@ -163,6 +170,16 @@ const telegramStep = async (msg) => {
     );
   }
   await updateAirdrop({ id: msg.chat.id, telegram: msg.text });
+  return bot.sendMessage(msg.chat.id, listText.VERSE(msg.chat.username), {
+    reply_markup: keyboards.verse,
+  });
+};
+
+const verseStep = async (msg) => {
+  if (msg.text !== 'next') {
+    return bot.sendMessage(msg.chat.id, listText.validNext);
+  }
+  await updateAirdrop({ id: msg.chat.id, verse: msg.text });
   return bot.sendMessage(msg.chat.id, listText.WALLET(msg.chat.username));
 };
 
