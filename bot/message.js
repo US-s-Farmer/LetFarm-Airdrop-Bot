@@ -27,13 +27,14 @@ module.exports = {
   TWITTER: (user) => {
     return `Great ${
       user ? user : ''
-    }, next follow our twitter and retweet this post bellow.\n Then submit your twitter account bellow
+    }, next follow our twitter, advertising partner on twitter
+    and retweet this post bellow.\n Then submit your twitter account bellow
         \n Make sure your twitter account is correct, we will check it later `;
   },
   TELEGRAM: (user) => {
     return `Great ${
       user ? user : ''
-    }, next join to our telegram group.\n Then submit your telegram handle below`;
+    }, next join to our telegram group, advertising partner telegram group.\n Then submit your telegram handle below`;
   },
   WALLET: () => {
     return `This is final step. Please submit your BEP-20 address here`;
