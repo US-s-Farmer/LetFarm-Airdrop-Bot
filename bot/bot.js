@@ -34,7 +34,10 @@ const bot = new TelegramBot(token, { polling: true });
 
 const keyboards = {
   facebook: {
-    inline_keyboard: [[{ text: 'Facebook', url: process.env.FACEBOOK_LINK }]],
+    inline_keyboard: [
+      [{ text: 'Facebook', url: process.env.FACEBOOK_LINK }],
+      [{ text: 'Facebook post', url: process.env.FACEBOOK_POST_LINK }],
+    ],
   },
   twitter: {
     inline_keyboard: [

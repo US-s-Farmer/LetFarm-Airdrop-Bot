@@ -23,7 +23,7 @@ module.exports = {
     } ${process.env.SYMBOL} for bonus`;
   },
   FACEBOOK: () => {
-    return `Let's start by following our facebook page.\n Then submit your facebook handle below`;
+    return `Let's start by following our facebook page and like this post bellow.\n Then submit your facebook handle below`;
   },
   TWITTER: (user) => {
     return `Great ${
